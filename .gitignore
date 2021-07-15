@@ -1,3 +1,4 @@
 *.qiniu_pythonsdk_hostscache.json
 *.db
+*.jpg
 __pycache__ #
