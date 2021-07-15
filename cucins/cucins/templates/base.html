@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>{% block title %}{% endblock%}</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="{% block css %}{% endblock%}">
+<link
+rel="stylesheet"
+href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+crossorigin="anonymous"
+/>
+<link
+rel="stylesheet"
+href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+crossorigin="anonymous"
+/>
+
+
+
+
+
+<!--The following script tag downloads a font from the Adobe Edge Web Fonts server for use within the web page. We recommend that you do not modify it.-->
+
+</head>
+
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbar"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar">
+      <div class="navbar-nav">
+        <a class="nav-item nav-link" id="CUC-Ins" href="/">CUC-Ins</a>
+        {% if current_user.is_authenticated %}
+
+        <a class="nav-item nav-link" id="home" href="/">主页</a>
+        <a href="/profile/{{current_user.id}}" class="nav-item nav-link" >{{current_user.usernickname}}</a>
+        <a class="nav-item nav-link" id="logout" href="/logout/" >退出</a>
+        {% else %}
+        <a class="nav-item nav-link" id="login" href="/reloginpage/">登录</a>
+        <a class="nav-item nav-link" id="signUp" href="/signup/">注册</a>
+        {% endif %}
+      </div>
+    </div>
+  </nav>
+
+
+  {% block content %}{% endblock%}
+
+
+  {% block js %}{% endblock %}
+<footer> 
+    <hr>
+	<p align="center"> © 2021 CUC-Ins </p>
+  </footer>
+</div>
+</body>
+</html>
