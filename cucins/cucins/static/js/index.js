@@ -82,13 +82,6 @@ $(function () {
                         '<span>全部 </span><span class="">#{comment_count}</span>',
                         '<span> 条评论</span></a>',
                 '</li>',
-                '<li>',
-                    '<!-- <a class=" icon-remove" title="删除评论"></a> -->',
-                    '<a class="_4zhc5 _iqaka" title="" href="/profile/#{comment.user_id}" >#{comment.user.username}</a>',
-                    '<span>',
-                        '<span>#{comments.content}</span>',
-                    '</span>',
-                '</li>',
             '</ul>',
 
         '</div>',

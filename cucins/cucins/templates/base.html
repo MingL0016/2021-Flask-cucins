@@ -26,15 +26,18 @@ crossorigin="anonymous"
       data-toggle="collapse"
       data-target="#navbar"
     >
-      <span class="navbar-toggler-icon"></span>
+      <span class="navbar-toggler-icon"> </span>
     </button>
     <div class="collapse navbar-collapse" id="navbar">
       <div class="navbar-nav">
+        <img src="/static/images/logo.png" width="90px" height="40px">
         <a class="nav-item nav-link" id="CUC-Ins" href="/">CUC-Ins</a>
         {% if current_user.is_authenticated %}
 
         <a class="nav-item nav-link" id="home" href="/">主页</a>
         <a href="/profile/{{current_user.id}}" class="nav-item nav-link" >{{current_user.usernickname}}</a>
+        <a class="nav-item nav-link" id="changenickname" href="/resetnickname/" >更改昵称</a>
+        <a class="nav-item nav-link" id="changepassword" href="/resetpassword/" >更改密码</a>
         <a class="nav-item nav-link" id="logout" href="/logout/" >退出</a>
         {% else %}
         <a class="nav-item nav-link" id="login" href="/reloginpage/">登录</a>

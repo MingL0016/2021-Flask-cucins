@@ -1,84 +1,95 @@
-{% extends "base.html" %}
-{% block title %}详情页{% endblock%}
-
-{% block content %}
-<link rel = "stylesheet" href = '/static/css/profile.css'>
-<link rel = "stylesheet" href = '/static/css/datail.css'>
+{% extends "base.html" %} {% block title %}详情页{% endblock%} {% block content
+%}
+<link rel="stylesheet" href="/static/css/profile.css" />
+<link rel="stylesheet" href="/static/css/datail.css" />
 <div class="page-main clearfix">
-    <article>
-        <div class="pic-wrapper">
-            <img src="{{image.url}}?imageView/1/w/600/h/600">
+  <article>
+    <div class="pic-wrapper">
+      <img src="{{image.url}}?imageView/1/w/600/h/600" />
+    </div>
+    <div class="pic-discuss">
+      <header class="discuss-hd">
+        <a href="/profile/{{image.user.id}}" class="avatar">
+          <img src="{{image.user.head_url}}" />
+        </a>
+        <div class="profile-info">
+          <a
+            title="{{image.user.usernickname}}"
+            href="/profile/{{image.user.id}}"
+            >{{image.user.usernickname}}</a
+          >
         </div>
-        <div class="pic-discuss">
-            <header class="discuss-hd">
-                <a href="/profile/{{image.user.id}}" class="avatar">
-                    <img src="{{image.user.head_url}}">
-                </a>
-                <div class="profile-info">
-                    <a title="{{image.user.username}}" href="/profile/{{image.user.id}}">{{image.user.username}}</a>
-                </div>
-            </header>
+      </header>
 
-            <section class="like-item">
-                <div class="like-names">
-                    {% for like in likes%}
-                    <a class="" title="{{like.user.username}}:" href="/profile/{{like.user.id}}">{{like.user.username}}  </a>
-                    {%endfor%}
-                    {% if image.likes|length !=0 %}
-                    <p>赞了</p>
-                    {%endif%}
-                </div>
-            </section>
-
-
-                <div class="dian" id="f5" >
-                    <div id="zan" onclick="like();f5();">
-                        <img src="/static/images/like.png" alt="很棒，赞一个" width="20px" height="20px" >
-                        <div id="likenumber">{{image.likes|length}}</div>
-                    </div>
-                </div>
-                <hr>
-                <ul class="discuss-list js-discuss-list">
-                {% for comment in comments%}
-                <li>
-                    <a class="_4zhc5 _iqaka" title="{{comment.user.username}}:" href="/profile/{{comment.user.id}}">{{comment.user.username}}</a>
-                    <span>
-                        <span>{{comment.content}}</span>
-                    </span>
-                </li>
-                {% endfor %}
-            </ul>
-            <section class="discuss-edit">
-
-                <input placeholder="添加评论..." id="jsCmt" type="text">
-                <button class="more-info" id="jsSubmit">提交</button>
-            </section>
+      <section class="like-item">
+        <div class="like-names">
+          {% for like in likes%}
+          <a
+            class=""
+            title="{{like.user.usernickname}}:"
+            href="/profile/{{like.user.id}}"
+            >{{like.user.usernickname}}
+          </a>
+          {%endfor%} {% if image.likes|length !=0 %}
+          <p>赞了</p>
+          {%endif%}
         </div>
-    </article>
+      </section>
+
+      <div class="dian" id="f5">
+        <div id="zan" onclick="like();f5();">
+          <img
+            src="/static/images/like.png"
+            alt="很棒，赞一个"
+            width="20px"
+            height="20px"
+          />
+          <div id="likenumber">{{image.likes|length}}</div>
+        </div>
+      </div>
+      <hr />
+      <ul class="discuss-list js-discuss-list">
+        {% for comment in comments%}
+        <li>
+          <a
+            class="_4zhc5 _iqaka"
+            title="{{comment.user.usernickname}}:"
+            href="/profile/{{comment.user.id}}"
+            >{{comment.user.usernickname}}</a
+          >
+          <span>
+            <span>{{comment.content}}</span>
+          </span>
+        </li>
+        {% endfor %}
+      </ul>
+      <section class="discuss-edit">
+        <input placeholder="添加评论..." id="jsCmt" type="text" />
+        <button class="more-info" id="jsSubmit">提交</button>
+      </section>
+    </div>
+  </article>
 </div>
-{% endblock%}
-
-{% block js %}
+{% endblock%} {% block js %}
 <script type="text/javascript">
-    window.imageId ={{image.id}};
-    like = function ()                {
-                    $.ajax({
-                        url: '/addlike/',
-                        type: 'post',
-                        data: {image_id:window.imageId}
-                        }).done(
-                            function (oResult) {
-                        if (oResult.code !== 0) {
-                            return alert(oResult.msg || '提交失败，请重试');
-                        }
-                }
-                        )
-                        f5=window.setTimeout(function () {
-             window.location.reload();
-      },100)
-                    }
+  window.imageId ={{image.id}};
+  like = function ()                {
+                  $.ajax({
+                      url: '/addlike/',
+                      type: 'post',
+                      data: {image_id:window.imageId}
+                      }).done(
+                          function (oResult) {
+                      if (oResult.code !== 0) {
+                          return alert(oResult.msg || '提交失败，请重试');
+                      }
+              }
+                      )
+                      f5=window.setTimeout(function () {
+           window.location.reload();
+    },100)
+                  }
 </script>
 <script type="text/javascript" src="/static/js/jquery.js"></script>
-<script type="text/javascript" src="/static/js/like.js"></script>
 <script type="text/javascript" src="/static/js/detail.js"></script>
 {% endblock%}
