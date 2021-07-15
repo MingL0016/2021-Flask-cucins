@@ -4,6 +4,8 @@ from cucins import app
 from qiniu import Auth, put_stream, put_data, put_file
 import os
 
+#上传图片到七牛云（主要是免费）
+
 #需要填写你的 Access Key 和 Secret Key
 access_key = app.config['QINIU_ACCESS_KEY']
 secret_key = app.config['QINIU_SECRET_KEY']
@@ -20,7 +22,7 @@ def qiniu_upload_file(source_file, save_file_name):
     token = q.upload_token(bucket_name, save_file_name)
     source_file.save(os.path.join(save_dir, save_file_name))# 图片存在本地
 
-    ret, info = put_file(token, save_file_name, os.path.join(save_dir, save_file_name)) #上传图片到七牛云（主要是免费）
+    ret, info = put_file(token, save_file_name, os.path.join(save_dir, save_file_name)) 
     print (os.getcwd() )
     os.remove("cucins\\upload\\"+save_file_name)#删除存在本地的图片
     #ret, info = put_data(token, save_file_name, source_file.stream)

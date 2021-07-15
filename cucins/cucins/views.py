@@ -12,25 +12,11 @@ from cucins.qiniusdk import qiniu_upload_file
 from sqlalchemy import and_,or_
 
 
-
-
 @app.route('/')
 @app.route('/index')
 def index():
     paginate = Image.query.order_by(Image.id.desc()).paginate(page=1, per_page=10, error_out=False)
     return render_template('index.html', images=paginate.items, has_next=paginate.has_next)
-
-@app.route('/reloginpage/')
-def reloginpage():
-    msg = ''
-    for m in get_flashed_messages(with_categories=False, category_filter=['relogin']):
-        msg = msg + m
-    return render_template('login.html', msg=msg, next=request.values.get('next'))
-
-def redirect_with_msg(target, msg, category):
-    if msg != None:
-        flash(msg, category=category)
-    return redirect(target)
 
 @app.route('/login/', methods={'post', 'get'})
 def login():
@@ -58,14 +44,22 @@ def login():
 
     return redirect('/')
 
+@app.route('/reloginpage/')
+def reloginpage():
+    msg = ''
+    for m in get_flashed_messages(with_categories=False, category_filter=['relogin']):
+        msg = msg + m
+    return render_template('login.html', msg=msg, next=request.values.get('next'))
+
+def redirect_with_msg(target, msg, category):
+    if msg != None:
+        flash(msg, category=category)
+    return redirect(target)
 
 @app.route('/logout/')
 def logout():
     logout_user()
     return redirect('/')
-
-
-
 
 
 @app.route('/index/<int:page>/<int:per_page>/')
@@ -167,7 +161,7 @@ def upload():
    if file.filename.find('.') > 0:
        file_ext = file.filename.rsplit('.')[1].strip().lower()
    if file_ext in app.config['ALLOWED_EXT']:
-       file_name = str(uuid.uuid1()).replace('-','') + '.' + file_ext
+       file_name = str(uuid.uuid4()).replace('-','') + '.' + file_ext
        #url = save_to_local(file, file_name)
        url = qiniu_upload_file(file, file_name)
        if url != None:
@@ -206,7 +200,7 @@ def add_like():
 
 
 
-def is_contains_chinese(strs):
+def is_contains_chinese(strs): # 判断用户名是否含有中文
     for _char in strs:
         if '\u4e00' <= _char <= '\u9fa5':
             return True

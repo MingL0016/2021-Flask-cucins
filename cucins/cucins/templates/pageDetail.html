@@ -22,7 +22,7 @@
             <section class="like-item">
                 <div class="like-names">
                     {% for like in likes%}
-                    <a class="_4zhc5 _lx2l2" title="{{like.user.username}}:" href="/profile/{{like.user.id}}">{{like.user.username}}  </a>
+                    <a class="" title="{{like.user.username}}:" href="/profile/{{like.user.id}}">{{like.user.username}}  </a>
                     {%endfor%}
                     {% if image.likes|length !=0 %}
                     <p>赞了</p>
@@ -41,7 +41,6 @@
                 <ul class="discuss-list js-discuss-list">
                 {% for comment in comments%}
                 <li>
-                    <!-- <a class=" icon-remove" title="删除评论"></a> -->
                     <a class="_4zhc5 _iqaka" title="{{comment.user.username}}:" href="/profile/{{comment.user.id}}">{{comment.user.username}}</a>
                     <span>
                         <span>{{comment.content}}</span>

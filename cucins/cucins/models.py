@@ -15,15 +15,15 @@ class Like(db.Model):
     created_time = db.Column(db.DateTime)
     user = db.relationship('User')
 
-    def __init__(self,image_id, user_id):
+    def __init__(self,image_id, user_id): # 初始化
         self.image_id = image_id
         self.user_id = user_id
         self.created_time = datetime.now()
 
-    def __repr__(self):
+    def __repr__(self): # 引用
         return '%d' % (self.id)
 
-class Comment(db.Model):
+class Comment(db.Model): # 评论
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     content = db.Column(db.String(1024))
     image_id = db.Column(db.Integer, db.ForeignKey('image.id'))
@@ -40,7 +40,7 @@ class Comment(db.Model):
     def __repr__(self):
         return '<Comment %d %s>' % (self.id, self.content)
 
-class Image(db.Model):
+class Image(db.Model): 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     url = db.Column(db.String(512))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
@@ -71,7 +71,7 @@ class User(db.Model):
         self.usernickname = usernickname
         self.password = password
         self.salt = salt
-        self.head_url = 'http://images.nowcoder.com/head/' + str(random.randint(0,1000)) + 'm.png'
+        self.head_url = '/static/images/(' + str(random.randint(0,300)) + ').jpg' # 初始化头像
 
     def __repr__(self):
         return '<User %d %s %s >' % (self.id, self.username,self.usernickname)
